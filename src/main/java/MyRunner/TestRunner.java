@@ -52,7 +52,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 	        capability.setCapability("isRealMobile", true);
 
             capability.setCapability("app","lt://proverbial-android");     //Enter the app url here
-            capability.setCapability("network", true);
+            capability.setCapability("network", false);
     		capability.setCapability("video", true);
     		capability.setCapability("console", true);
     		capability.setCapability("visual", true);
