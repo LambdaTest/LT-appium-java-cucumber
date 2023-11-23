@@ -61,7 +61,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     capability.setCapability("app", app_id);     //Enter the app url here
     capability.setCapability("devicelog", true);
-    capability.setCapability("network", true);
+    capability.setCapability("network", false);
     capability.setCapability("video", true);
     capability.setCapability("console", true);
     capability.setCapability("visual", true);
