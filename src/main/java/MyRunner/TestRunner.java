@@ -41,16 +41,13 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         capability.setCapability("platformName", platformName);
         capability.setCapability("deviceName", deviceName);
         capability.setCapability("platformVersion", platformVersion);
-
         capability.setCapability("build", "LT-appium-java-cucumber");
-        capability.setCapability("test", "Test Parallel");
+        capability.setCapability("name", "Android Test");
         capability.setCapability("isRealMobile", true);
-
         capability.setCapability("app", app_id);     //Enter the app url here
         capability.setCapability("devicelog", true);
         capability.setCapability("network", false);
         capability.setCapability("video", true);
-        capability.setCapability("console", true);
         capability.setCapability("visual", true);
 
         String gridURL = "https://" + username + ":" + accesskey + "@" + grid_url + "/wd/hub";
