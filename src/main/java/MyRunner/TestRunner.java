@@ -44,10 +44,8 @@ public class TestRunner extends AbstractTestNGCucumberTests {
       System.getenv("LT_ACCESS_KEY");     //Enter your LambdaTest accessKey at the place of YOUR_LT_ACCESSKEY
     String app_id = System.getenv("LT_APP_ID") == null ?
       "lt://proverbial-android" :
-      System.getenv("LT_APP_ID");      //Enter your LambdaTest username at the place of YOUR_LT_USERNAME
-    String grid_url = System.getenv("LT_GRID_URL") == null ?
-      "mobile-hub.lambdatest.com" :
-      System.getenv("LT_GRID_URL");     //Enter your LambdaTest accessKey at the place of YOUR_LT_ACCESSKEY
+      System.getenv("LT_APP_ID");      //Enter your LambdaTest App ID at the place of lt://proverbial-android
+    String grid_url = System.getenv("LT_GRID_URL") == null ? "mobile-hub.lambdatest.com" : System.getenv("LT_GRID_URL");
 
     DesiredCapabilities capability = new DesiredCapabilities();
 
