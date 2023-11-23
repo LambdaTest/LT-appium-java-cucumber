@@ -66,7 +66,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     capability.setCapability("console", true);
     capability.setCapability("visual", true);
 
-    String gridURL = "https://" + username + ":" + accesskey + grid_url;
+    String gridURL = "https://" + username + ":" + accesskey + "@" + grid_url;
     connection = new RemoteWebDriver(new URL(gridURL), capability);
   }
 
