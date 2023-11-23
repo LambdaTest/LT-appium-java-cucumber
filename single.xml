@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="BDD Test Suite" verbose="1" parallel="tests"
 	thread-count="3" >
-    <test name="WIN10TEST" annotations="JDK"
+    <test name="ANDROIDTEST" annotations="JDK"
 		preserve-order="true">
-        <parameter name="deviceName" value="Galaxy S21 5G"/>
-        <parameter name="platformVersion" value="11"/>
+        <parameter name="deviceName" value=".*"/>
+        <parameter name="platformVersion" value="12"/>
         <parameter name="platformName" value="Android"/>
         <classes>
             <class name="MyRunner.TestRunner" />
