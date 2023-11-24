@@ -13,7 +13,7 @@
     </test> <!-- Test -->
     <test name="OnePlus" annotations="JDK"
           preserve-order="true">
-        <parameter name="deviceName" value="OnePlus.*"/>
+        <parameter name="deviceName" value="Pixel.*"/>
         <parameter name="platformVersion" value="12"/>
         <parameter name="platformName" value="Android"/>
         <classes>
