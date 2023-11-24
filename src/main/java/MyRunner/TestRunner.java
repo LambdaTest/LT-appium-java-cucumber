@@ -46,6 +46,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         capability.setCapability("isRealMobile", true);
         capability.setCapability("app", app_id);     //Enter the app url here
         capability.setCapability("devicelog", true);
+        capability.setCapability("autoGrantPermissions", true);
         capability.setCapability("network", false);
         capability.setCapability("video", true);
         capability.setCapability("visual", true);
