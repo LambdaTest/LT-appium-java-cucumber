@@ -1,67 +1,63 @@
 package MyRunner;
 
-import java.net.URL;
-
+import io.appium.java_client.android.options.UiAutomator2Options;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import io.cucumber.testng.TestNGCucumberRunner;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 
-@CucumberOptions(features = "src/main/java/Features/todo.feature", glue = {
-        "stepDefinitions"}, plugin = "json:target/cucumber-reports/CucumberTestReport.json")
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
+@CucumberOptions(
+        // Pointing to the actual location seen in your file tree
+        features = "src/main/java/resources/features", 
+        glue = {"stepDefinitions"},
+        plugin = {
+                "pretty",
+                "html:target/cucumber-report.html"
+        },
+        monochrome = true
+)
 public class TestRunner extends AbstractTestNGCucumberTests {
 
-    private TestNGCucumberRunner testNGCucumberRunner;
-
-    public static RemoteWebDriver connection;
+    public static RemoteWebDriver driver; // Changed to public static for easier access in Hook
 
     @BeforeClass(alwaysRun = true)
-    public void setUpCucumber() {
-        testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-    }
+    public void setUp() throws Exception {
 
-    @BeforeMethod(alwaysRun = true)
-    @Parameters({"deviceName", "platformVersion", "platformName"})
-    public void setUpClass(String deviceName, String platformVersion, String platformName) throws Exception {
+        UiAutomator2Options options = new UiAutomator2Options();
 
-        String username = System.getenv("LT_USERNAME") == null ? "YOUR_LT_USERNAME" : System.getenv("LT_USERNAME");      //Enter your LambdaTest username at the place of YOUR_LT_USERNAME
-        String accesskey = System.getenv("LT_ACCESS_KEY") == null ? "YOUR_LT_ACCESSKEY" : System.getenv("LT_ACCESS_KEY");     //Enter your LambdaTest accessKey at the place of YOUR_LT_ACCESSKEY
-        String app_id = System.getenv("LT_APP_ID") == null ? "lt://proverbial-android" : System.getenv("LT_APP_ID");      //Enter your LambdaTest App ID at the place of lt://proverbial-android
-        String grid_url = System.getenv("LT_GRID_URL") == null ? "mobile-hub.lambdatest.com" : System.getenv("LT_GRID_URL");
+        options.setPlatformName("Android");
+        options.setDeviceName("Galaxy S21");
+        options.setPlatformVersion("13");
+        options.setApp("lt://APP10160171061769791489195489");
 
-        DesiredCapabilities capability = new DesiredCapabilities();
+        Map<String, Object> ltOptions = new HashMap<>();
+        // Ensure these environment variables are set on your machine
+        ltOptions.put("user", System.getenv("LT_USERNAME"));
+        ltOptions.put("accessKey", System.getenv("LT_ACCESS_KEY"));
+        ltOptions.put("isRealMobile", true);
+        ltOptions.put("build", "LT-Appium-Cucumber");
+        ltOptions.put("name", "Proverbial App Scenario");
+        ltOptions.put("video", true);
+        ltOptions.put("visual", true);
+        ltOptions.put("devicelog", true);
 
-        capability.setCapability("platformName", platformName);
-        capability.setCapability("deviceName", deviceName);
-        capability.setCapability("platformVersion", platformVersion);
-        capability.setCapability("build", "LT-appium-java-cucumber");
-        capability.setCapability("name", "Android Test");
-        capability.setCapability("isRealMobile", true);
-        capability.setCapability("app", app_id);     //Enter the app url here
-        capability.setCapability("devicelog", true);
-        capability.setCapability("autoGrantPermissions", true);
-        capability.setCapability("network", false);
-        capability.setCapability("video", true);
-        capability.setCapability("visual", true);
+        options.setCapability("lt:options", ltOptions);
 
-        String gridURL = "https://" + username + ":" + accesskey + "@" + grid_url + "/wd/hub";
-        connection = new RemoteWebDriver(new URL(gridURL), capability);
-    }
-
-    @DataProvider
-    public Object[][] features() {
-        return testNGCucumberRunner.provideScenarios();
+        driver = new RemoteWebDriver(
+                new URL("https://mobile-hub.lambdatest.com/wd/hub"),
+                options
+        );
     }
 
     @AfterClass(alwaysRun = true)
-    public void tearDownClass() {
-        testNGCucumberRunner.finish();
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
