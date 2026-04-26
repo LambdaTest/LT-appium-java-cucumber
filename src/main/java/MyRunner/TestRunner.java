@@ -13,7 +13,7 @@ import java.util.Map;
 
 @CucumberOptions(
         // Pointing to the actual location seen in your file tree
-        features = "src/main/java/resources/features", 
+        features = "src/main/java/Features/todo.feature", 
         glue = {"stepDefinitions"},
         plugin = {
                 "pretty",
@@ -33,7 +33,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         options.setPlatformName("Android");
         options.setDeviceName("Galaxy S21");
         options.setPlatformVersion("13");
-        options.setApp("lt://APP10160171061769791489195489");
+        options.setApp("app-id");
 
         Map<String, Object> ltOptions = new HashMap<>();
         // Ensure these environment variables are set on your machine

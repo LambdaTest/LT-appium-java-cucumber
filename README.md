@@ -121,21 +121,30 @@ Check out [single.xml](https://github.com/LambdaTest/LT-appium-java-cucumber/blo
 
 
 ```java
-    DesiredCapabilities capability = new DesiredCapabilities();    		
-        capability.setCapability("platformName", platformName);
-        capability.setCapability("deviceName", deviceName);
-        capability.setCapability("platformVersion",platformVersion);
-    		    		
-    		capability.setCapability("build", "Native App automate Demo");
-        capability.setCapability("test", "Test Parallel");    		
-        capability.setCapability("isRealMobile", true);
+    // Logic from TestRunner.java
+UiAutomator2Options options = new UiAutomator2Options();
 
-        capability.setCapability("app","lt://proverbial-android");     //Enter the app url here
-        capability.setCapability("network", true);
-    		capability.setCapability("video", true);
-    		capability.setCapability("console", true);
-    		capability.setCapability("visual", true);
-```
+options.setPlatformName("Android");
+options.setDeviceName("Galaxy S21");
+options.setPlatformVersion("13");
+options.setApp("app-id"); // Replace with your lt://app_url
+
+Map<String, Object> ltOptions = new HashMap<>();
+ltOptions.put("user", System.getenv("LT_USERNAME"));
+ltOptions.put("accessKey", System.getenv("LT_ACCESS_KEY"));
+ltOptions.put("isRealMobile", true);
+ltOptions.put("build", "LT-Appium-Cucumber");
+ltOptions.put("name", "Proverbial App Scenario");
+ltOptions.put("video", true);
+ltOptions.put("visual", true);
+ltOptions.put("devicelog", true);
+
+options.setCapability("lt:options", ltOptions);
+
+driver = new RemoteWebDriver(
+        new URL("[https://mobile-hub.lambdatest.com/wd/hub](https://mobile-hub.lambdatest.com/wd/hub)"),
+        options
+);
 
 **Note:**
 
